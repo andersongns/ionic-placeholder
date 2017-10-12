@@ -1,37 +1,33 @@
-import { CommentsPage } from './../comments/comments';
 import { Component } from '@angular/core';
 import { Http } from '@angular/http';
 import { NavController, NavParams } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
 
+
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: 'page-photos',
+  templateUrl: 'photos.html',
 })
-export class HomePage {
-  public posts = [];
+export class PhotosPage {
+
+  public photos = [];
 
   constructor(public navCtrl: NavController, private http: Http, public navParams: NavParams, public loadingCtrl: LoadingController) {
-    let user = JSON.parse(localStorage.getItem("user"));
-    this.getPosts(user.id);
+    this.getPhotos(navParams.get('albumId'));
   }
 
-  getPosts(userId) {
+  getPhotos(albumId) {
     let loader = this.loadingCtrl.create({
       content: "Aguarde um momento..."
     });
     loader.present();
-    this.http.get(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`).subscribe(data => {
-      this.posts = data.json();
+    this.http.get(`https://jsonplaceholder.typicode.com/photos?albumId=${albumId}`).subscribe(data => {
+      this.photos = data.json();
     }, err => {
       console.log(err);
     }, () => {
       loader.dismiss();
     });
-  }
 
-  postSelected(post){
-    this.navCtrl.push(CommentsPage,{"postId" : post.id});
   }
-
 }

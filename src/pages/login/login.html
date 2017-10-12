@@ -1,0 +1,23 @@
+<ion-content>
+
+  <form  #f="ngForm" (ngSubmit)="doLogin(f.value.username)">
+
+    <ion-list inset>
+      <ion-item>
+        <ion-label floating>Usuário</ion-label>
+        <ion-input ngModel name="username" type="text" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Senha</ion-label>
+        <ion-input ngModel name="password" type="password" required></ion-input>
+      </ion-item>
+
+    </ion-list>
+
+    <div padding>
+      <button block ion-button>Entrar</button>
+    </div>
+  </form>
+
+</ion-content>
